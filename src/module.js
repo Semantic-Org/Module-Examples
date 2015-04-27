@@ -132,19 +132,18 @@ $.fn.example = function(parameters) {
           $text   = $(this).find(settings.selector.text);
         },
 
-        // ### Bind events
+        // ### Bind Events
         // Bind events to element
         bind: {
           events: function() {
             $module
-              .on('click' + eventNamespace, module.exampleBehavior)
+              .on('click' + eventNamespace, module.event.click)
             ;
           }
         },
 
-        // ### Custom
-        // #### By Event
-        // Sometimes it makes sense to call an event handler by its type if it is dependent on the event to behave properly
+        // ### Events
+        // Events are not usually directly invokable by a user. Using a special event object keeps events that are dependent on being called as event handlers distinct from other internal methods
         event: {
           click: function(event) {
             module.verbose('Preventing default action');
@@ -155,16 +154,7 @@ $.fn.example = function(parameters) {
           }
         },
 
-        // #### By Function
-        // Other times events make more sense for methods to be called by their function if it is ambivalent to how it is invoked
-        behavior: function() {
-          module.debug('Changing the text to a new value', text);
-          if( !module.has.text() ) {
-            module.set.text( text);
-          }
-        },
-
-        // #### Behaviors
+        // #### Custom Methods
         // Custom methods should be defined with consistent word usage, some useful terms: "has", "set", "get", "change", "add", "remove"
         // Make sure method names read in sentence order, "set text" not "text set"
         has: {
@@ -190,7 +180,16 @@ $.fn.example = function(parameters) {
           }
         },
 
-        // ### Standard
+        // Using camel case for invokable methods is also ok. This can be still be invoked using `change text`
+        changeText: function() {
+          module.debug('Changing the text to a new value', text);
+          if( !module.has.text() ) {
+            module.set.text(text);
+          }
+        },
+
+        // ### Standard Methods
+        // These methods are reproduced in all components and usually do not include any adjustments
 
         // #### Setting
         // Module settings can be read or set using this method
