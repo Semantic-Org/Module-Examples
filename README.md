@@ -2,7 +2,7 @@
 
 This is the annotated source of the standard module format used to power UI modules in Semantic UI.
 
-You can view it online [here].
+You can view the [annotated source](http://semantic-org.github.io/Module-Examples/docs/module.html) online.
 
 ## Standard Features
 
@@ -52,3 +52,12 @@ if('MutationObserver' in window) {
 }
 ```
 
+## Building Docs
+
+
+```bash
+# to get docco
+npm install -g docco
+# to build
+docco src/*.js --css src/css/docco
+```
